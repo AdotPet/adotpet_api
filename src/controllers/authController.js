@@ -28,7 +28,7 @@ router.post('/register', async (req, res) => {
 		// remove password in output user json
 		user.password = undefined;
 
-		return res.send({ user, token: generateToken({ id: user.id }) });
+		return res.send({ user, token: generateToken({ id: user.id, name: user.name, email: user.email }) });
 	} catch (err) {
 		return res.status(400).send({ error: 'Registration Failed.' });
 	}
@@ -47,7 +47,7 @@ router.post('/authenticate', async (req, res) => {
 
 	user.password = undefined;
 
-	res.send({ user, token: generateToken({ id: user.id }) });
+	res.send({ user, token: generateToken({ id: user.id, name: user.name, email: user.email }) });
 });
 
 module.exports = (app) => app.use('/auth', router);

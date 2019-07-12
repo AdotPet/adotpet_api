@@ -5,8 +5,20 @@ const User = require('../models/user');
 const router = express.Router();
 
 router.post('/register', async (req, res) => {
+	const { email } = req.body;
+	let user = null;
+
 	try {
-		const user = await User.create(req.body);
+		user = await User.findOne({ email });
+
+		if (user) {
+			return res.status(400).send({ error: 'User already exists.' });
+		}
+
+		user = await User.create(req.body);
+
+		// remove password in output user json
+		user.password = undefined;
 
 		return res.send({ user });
 	} catch (err) {

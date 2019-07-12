@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/ZeRodolfo/adoptpet_api#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.6.4"
   },
   "devDependencies": {
     "tslint": "^5.18.0",

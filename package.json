@@ -19,5 +19,9 @@
   "homepage": "https://github.com/ZeRodolfo/adoptpet_api#readme",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
   }
 }

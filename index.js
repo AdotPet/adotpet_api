@@ -21,4 +21,4 @@ app.use("/api/user", authRoute);
 app.use("/api/animals", animalsRoute);
 app.use("/api/users", usersRoute);
 
-app.listen(3000, () => console.log("Express service up and running"));
+app.listen(process.env.PORT, () => console.log("Express service up and running"));

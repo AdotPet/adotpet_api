@@ -7,7 +7,6 @@ const {
   loginValidation,
   ongValidation
 } = require("../validate");
-const authenticatedRoute = require("./verifyToken");
 
 router.post("/register", async (req, res) => {
   // Verify type user 0 = admin / 1 = user / 2 = Ong
@@ -70,12 +69,6 @@ router.post("/login", async (req, res) => {
   res.header("auth-token", token);
 
   res.send("Login successfuly...");
-});
-
-router.get("/users", authenticatedRoute,  async (req, res) => {
-  const users = await User.find().select("-password");
-
-  res.send(users);
 });
 
 module.exports = router;

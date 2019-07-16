@@ -2,28 +2,47 @@ const router = require("express").Router();
 const User = require("../model/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const { registerValidation, loginValidation } = require("../validate");
+const {
+  registerValidation,
+  loginValidation,
+  ongValidation
+} = require("../validate");
 
 router.post("/register", async (req, res) => {
+  // Verify type user 0 = admin / 1 = user / 2 = Ong
+  const { dataUser, entity } = req.body;
+
+  switch (dataUser.role) {
+    case 1:
+      break;
+    case 2:
+      const { error } = ongValidation(entity);
+      if (error) return res.status(400).send(error.details[0].message);
+      break;
+    default:
+      break;
+  }
+
   // Validate the data before submit a user
-  const { error } = registerValidation(req.body);
+  const { error } = registerValidation(dataUser);
 
   if (error) return res.status(400).send(error.details[0].message);
 
   // Checking if the user is already in the database
-  const emailExist = await User.findOne({ email: req.body.email });
+  const emailExist = await User.findOne({ email: dataUser.email });
   if (emailExist) return res.status(400).send("Este e-mail já existe.");
 
   // Hash passwords
   const salt = await bcrypt.genSalt(10);
-  const hashPassword = await bcrypt.hash(req.body.password, salt);
+  const hashPassword = await bcrypt.hash(dataUser.password, salt);
 
   // Create a new user
   const user = new User({
-    name: req.body.name,
-    email: req.body.email,
+    name: dataUser.name,
+    email: dataUser.email,
     password: hashPassword
   });
+  
   try {
     const savedUser = await user.save();
     res.send({ user: user._id });

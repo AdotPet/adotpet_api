@@ -33,6 +33,25 @@ const loginValidation = data => {
   return Joi.validate(data, schema);
 };
 
+const addressValidation = data => {
+  const schema = {
+    state: Joi.string()
+      .min(2)
+      .max(2)
+      .required(),
+    city: Joi.string()
+      .min(3)
+      .required(),
+    district: Joi.string()
+      .min(3)
+      .required(),
+    address: Joi.string()
+      .min(4)
+      .required()
+  };
+  return Joi.validate(data, schema);
+};
+
 const ongValidation = data => {
   const schema = {
     foundation: Joi.date().required(),
@@ -70,7 +89,9 @@ const commonUserValidation = data => {
   const schema = {
     lastname: Joi.string.min(3).required(),
     birthdate: Joi.date().required(),
-    genere: Joi.string().valid(["male", "female"]).required(),
+    genere: Joi.string()
+      .valid(["male", "female"])
+      .required(),
     cpf: Joi.number().optional(),
     interest: Joi.any()
       .valid(["adopt", "donate", "both"])
@@ -102,6 +123,7 @@ const commonUserValidation = data => {
 };
 
 module.exports = {
+  addressValidation,
   commonUserValidation,
   ongValidation,
   registerValidation,

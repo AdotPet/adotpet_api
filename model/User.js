@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  animais: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Animals"
   }
 });
 

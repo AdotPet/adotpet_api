@@ -96,19 +96,6 @@ const commonUserValidation = data => {
     interest: Joi.any()
       .valid(["adopt", "donate", "both"])
       .required(),
-    state: Joi.string()
-      .min(2)
-      .max(2)
-      .required(),
-    city: Joi.string()
-      .min(3)
-      .required(),
-    district: Joi.string()
-      .min(3)
-      .required(),
-    address: Joi.string()
-      .min(4)
-      .required(),
     photo: Joi.string()
       .min(6)
       .required(),

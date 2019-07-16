@@ -73,6 +73,10 @@ const animalSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  user_id: {
+    type: String,
+    required: true
   }
 });
 

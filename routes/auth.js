@@ -40,6 +40,7 @@ router.post("/register", async (req, res) => {
   const user = new User({
     name: dataUser.name,
     email: dataUser.email,
+    role: dataUser.role,
     password: hashPassword
   });
 
@@ -66,9 +67,9 @@ router.post("/login", async (req, res) => {
 
   // Create and assign a token
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-  res.header("auth-token", token);
+  res.header("token", token);
 
-  res.send("Login successfuly...");
+  res.send({ token: token });
 });
 
 module.exports = router;

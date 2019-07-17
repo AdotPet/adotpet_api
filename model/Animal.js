@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const animalSchema = new mongoose.Schema({
+  pet_owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
   name: {
     type: String,
     required: true,
@@ -73,10 +77,6 @@ const animalSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
-  },
-  user_id: {
-    type: String,
-    required: true
   }
 });
 
